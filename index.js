@@ -63,6 +63,13 @@ async function run() {
             res.send(result);
         });
 
+        app.post('/audis', async (req, res) => {
+            const data = req.body;
+            const result = await audiCollection.insertOne(data);
+            res.send(result);
+        });
+
+
         app.get('/audis/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -136,6 +143,13 @@ async function run() {
         app.get('/users', async (req, res) => {
             const email = req.query.email;
             const query = { email: email };
+            const result = await usersCollection.find(query).toArray();
+            res.send(result);
+        });
+
+        app.get('/user', async (req, res) => {
+            const role = req.query.role;
+            const query = { role: role };
             const result = await usersCollection.find(query).toArray();
             res.send(result);
         });

@@ -68,6 +68,16 @@ async function run() {
             const result = await audiCollection.insertOne(data);
             res.send(result);
         });
+        app.post('/hondas', async (req, res) => {
+            const data = req.body;
+            const result = await hondaCollection.insertOne(data);
+            res.send(result);
+        });
+        app.post('/mercedess', async (req, res) => {
+            const data = req.body;
+            const result = await mercedesCollection.insertOne(data);
+            res.send(result);
+        });
 
 
         app.get('/audis/:id', async (req, res) => {
@@ -90,6 +100,8 @@ async function run() {
             const result = await mercedesCollection.findOne(query);
             res.send(result);
         });
+
+
 
         app.post('/bookings', async (req, res) => {
             const booking = req.body;

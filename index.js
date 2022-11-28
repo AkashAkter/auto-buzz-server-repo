@@ -47,6 +47,8 @@ async function run() {
         const usersCollection = client.db('autoBuzz').collection('users');
         const paymentsCollection = client.db('autoBuzz').collection('payments');
 
+
+        // Getting all products
         app.get('/audis', async (req, res) => {
             const query = {};
             const result = await audiCollection.find(query).toArray();
@@ -65,6 +67,8 @@ async function run() {
             res.send(result);
         });
 
+
+        //getting all products by seller name
         app.get('/myMercedess', async (req, res) => {
             const sellerName = req.query.sellerName;
             const query = { sellerName: sellerName };
@@ -86,6 +90,7 @@ async function run() {
             res.send(result);
         });
 
+        //posting products by seller
         app.post('/audis', async (req, res) => {
             const data = req.body;
             const result = await audiCollection.insertOne(data);
@@ -103,6 +108,7 @@ async function run() {
         });
 
 
+        //getting details of that product
         app.get('/audis/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -124,6 +130,7 @@ async function run() {
             res.send(result);
         });
 
+        //booking section
         app.post('/bookings', async (req, res) => {
             const booking = req.body;
             console.log(booking);
@@ -131,6 +138,7 @@ async function run() {
             res.send(result);
         });
 
+        //getting booked items 
         app.get('/bookings/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -159,6 +167,8 @@ async function run() {
             res.send(result);
         });
 
+
+        //payment method
         app.post('/create-payment-intent', async (req, res) => {
             const booking = req.body;
             const currentPrice = parseInt(booking.currentPrice);
@@ -192,6 +202,7 @@ async function run() {
             res.send(result);
         });
 
+        //jwt token
         app.get('/jwt', async (req, res) => {
             const email = req.query.email;
             const query = { email: email };

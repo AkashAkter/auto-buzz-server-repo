@@ -65,6 +65,27 @@ async function run() {
             res.send(result);
         });
 
+        app.get('/myMercedess', async (req, res) => {
+            const sellerName = req.query.sellerName;
+            const query = { sellerName: sellerName };
+            const result = await mercedesCollection.find(query).toArray();
+            res.send(result);
+        });
+
+        app.get('/myAudi', async (req, res) => {
+            const sellerName = req.query.sellerName;
+            const query = { sellerName: sellerName };
+            const result = await audiCollection.find(query).toArray();
+            res.send(result);
+        });
+
+        app.get('/myHonda', async (req, res) => {
+            const sellerName = req.query.sellerName;
+            const query = { sellerName: sellerName };
+            const result = await hondaCollection.find(query).toArray();
+            res.send(result);
+        });
+
         app.post('/audis', async (req, res) => {
             const data = req.body;
             const result = await audiCollection.insertOne(data);
@@ -116,7 +137,14 @@ async function run() {
             const booking = await bookingsCollection.findOne(query);
             res.send(booking);
 
-        })
+        });
+
+        app.get('/booked', async (req, res) => {
+            const query = {};
+            const result = await bookingsCollection.find(query).toArray();
+            res.send(result);
+
+        });
 
         app.get('/bookings', verifyJWT, async (req, res) => {
             const email = req.query.email;
@@ -200,6 +228,13 @@ async function run() {
             const result = await usersCollection.find(query).toArray();
             res.send(result);
         });
+
+        app.delete('/allUsers/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await usersCollection.deleteOne(query);
+            res.send(result);
+        })
 
     }
     finally {

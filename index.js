@@ -234,7 +234,7 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const result = await usersCollection.deleteOne(query);
             res.send(result);
-        })
+        });
 
     }
     finally {
